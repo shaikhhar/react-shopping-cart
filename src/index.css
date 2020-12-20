@@ -13,17 +13,19 @@ body,
 input,
 select,
 textarea {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
   font-size: 1.6rem;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 .grid-container {
-  display: grid;
-  grid-template-areas: "header" "main" "footer";
-  grid-template-rows: 5rem 1fr 5rem;
-  grid-template-columns: 1fr;
-  height: 100%;
+  min-height: 100%;
 }
+
+a {
+  text-decoration: none;
+}
+
 header {
   grid-area: header;
   background-color: #203040;
@@ -41,13 +43,38 @@ header a {
   text-decoration: none;
   color: #ffffff;
 }
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-main {
-  grid-area: main;
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main {
+  width: 70%;
+}
+
+.products {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  width: 30%;
+}
+
+.product-image {
+  width: 100%;
+  object-fit: contain;
 }
 
 footer {
-  grid-area: footer;
+  position: relative;
+  width: 100%;
   color: #ffffff;
   background-color: #203040;
   display: flex;
