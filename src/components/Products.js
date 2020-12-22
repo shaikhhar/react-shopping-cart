@@ -3,13 +3,19 @@ import formatCurrency from "../util";
 import Modal from "react-modal";
 import "./Product.css";
 import { Zoom } from "react-reveal";
+import { connect } from "react-redux";
+import { fetchProducts } from "../actions/productActions";
 
-export default class Products extends Component {
+class Products extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: null,
     };
+  }
+
+  componentDidMount() {
+    this.props.fetchProducts();
   }
 
   openModal = (product) => {
@@ -26,36 +32,40 @@ export default class Products extends Component {
     const { product } = this.state;
     return (
       <div>
-        <ul className="products">
-          {this.props.products.map((product) => {
-            return (
-              <li className="product" key={product._id}>
-                <div className="product-container">
-                  <a
-                    href={"#" + product._id}
-                    onClick={() => this.openModal(product)}
-                  >
-                    <img
-                      className="product-image"
-                      src={product.image}
-                      alt={product.title}
-                    />
-                    <p>{product.title}</p>
-                  </a>
-                  <div className="product-price">
-                    <div>{formatCurrency(product.price)}</div>
-                    <button
-                      onClick={() => this.props.addToCart(product)}
-                      className="button primary"
+        {!this.props.products ? (
+          <div>Loading...</div>
+        ) : (
+          <ul className="products">
+            {this.props.products.map((product) => {
+              return (
+                <li className="product" key={product._id}>
+                  <div className="product-container">
+                    <a
+                      href={"#" + product._id}
+                      onClick={() => this.openModal(product)}
                     >
-                      Add to Cart
-                    </button>
+                      <img
+                        className="product-image"
+                        src={product.image}
+                        alt={product.title}
+                      />
+                      <p>{product.title}</p>
+                    </a>
+                    <div className="product-price">
+                      <div>{formatCurrency(product.price)}</div>
+                      <button
+                        onClick={() => this.props.addToCart(product)}
+                        className="button primary"
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
         {product && (
           <Modal isOpen onRequestClose={this.closeModal}>
@@ -99,3 +109,7 @@ export default class Products extends Component {
     );
   }
 }
+
+export default connect((state) => ({ products: state.products.items }), {
+  fetchProducts,
+})(Products);
