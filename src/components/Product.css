@@ -41,3 +41,23 @@
 .button.primary {
   background-color: #f0c040;
 }
+
+.product-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-height: 96vh;
+}
+
+.product-details img {
+  max-height: 100vh;
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.product-details-description {
+  flex: 1 1;
+  margin: 1rem;
+  top: 2.5rem;
+  z-index: 100;
+}
