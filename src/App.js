@@ -11,10 +11,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: data.products,
       cartItems: JSON.parse(localStorage.getItem("cartItems")),
-      size: "",
-      sort: "",
     };
   }
 
@@ -52,37 +49,6 @@ class App extends React.Component {
     localStorage.setItem("cartItems", JSON.stringify(cartItemsNew));
   };
 
-  sortProducts = (event) => {
-    console.log("sort ", event.target.value);
-    const sort = event.target.value;
-    this.setState({
-      sort: sort,
-      products: this.state.products.slice().sort((a, b) => {
-        return sort === "lowest"
-          ? a.price < b.price
-            ? -1
-            : 1
-          : sort === "highest"
-          ? a.price > b.price
-            ? -1
-            : 1
-          : a._id > b._id
-          ? -1
-          : 1;
-      }),
-    });
-  };
-
-  filterProducts = (event) => {
-    console.log("filter ", event.target.value);
-    this.setState({
-      size: event.target.value,
-      products: data.products.filter((product) =>
-        product.availableSizes.includes(event.target.value)
-      ),
-    });
-  };
-
   render() {
     return (
       <div>
@@ -94,16 +60,9 @@ class App extends React.Component {
             <main>
               <div className="content">
                 <div className="main">
-                  <Filter
-                    count={this.state.products.length}
-                    size={this.state.size}
-                    sort={this.state.sort}
-                    filterProducts={this.filterProducts}
-                    sortProducts={this.sortProducts}
-                  ></Filter>
+                  <Filter></Filter>
                   <Products
                     className="products"
-                    products={this.state.products}
                     addToCart={this.addToCart}
                   ></Products>
                 </div>
