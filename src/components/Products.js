@@ -5,6 +5,7 @@ import "./Product.css";
 import { Zoom } from "react-reveal";
 import { connect } from "react-redux";
 import { fetchProducts } from "../actions/productActions";
+import { addToCart, removeFromCart } from "../actions/cartActions";
 
 class Products extends Component {
   constructor(props) {
@@ -114,5 +115,6 @@ export default connect(
   (state) => ({ products: state.products.filteredItems }),
   {
     fetchProducts,
+    addToCart,
   }
 )(Products);
